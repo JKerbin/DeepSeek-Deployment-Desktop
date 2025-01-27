@@ -1,1 +1,1 @@
-<h1 align="center">DeepSeek-Deployment-Webui</h1>
+<h1 align="center">DeepSeek-Deployment-Desktop</h1>
