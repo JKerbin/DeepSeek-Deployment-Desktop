@@ -1,0 +1,73 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 4rem;
+    background: var(--gradient-color);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    -webkit-app-region: drag;
+}
+
+.logo{
+    position: absolute;
+    left: -20.5rem;
+    transform: scale(0.06);
+}
+
+.title{
+    position: absolute;
+    left: 0.5rem;
+}
+
+button {
+    -webkit-app-region: no-drag;
+}
+
+.close,
+.maximize,
+.restore,
+.minimize {
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+}
+
+.maximize,
+.restore {
+    right: 3.5rem;
+}
+
+.minimize {
+    right: 6rem;
+}
+
+.close svg,
+.maximize svg,
+.restore svg,
+.minimize svg {
+    width: 2.2rem;
+    height: 2.2rem;
+}
+
+.close:hover {
+    background-color: red;
+    border-radius: 4px;
+}
+
+.maximize:hover,
+.restore:hover,
+.minimize:hover {
+    background-color: var(--subtheme-color);
+    border-radius: 4px;
+}

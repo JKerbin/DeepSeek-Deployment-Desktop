@@ -1,0 +1,201 @@
+import { app, shell, BrowserWindow, ipcMain, Tray } from 'electron'
+import { join } from 'path'
+import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import icon from '../../resources/icon.png?asset'
+
+let mainWindow;
+let tray; // tray variable
+
+function createWindow(): void {
+
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+    icon: icon,
+    show: false,
+    frame: false,
+    transparent: false,
+    autoHideMenuBar: true,
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false
+    }
+  })
+
+  let intervalId;
+
+  intervalId = setInterval(() => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.webContents.send('maximized', true);
+    } else {
+      mainWindow.webContents.send('maximized', false);
+    }
+  }, 1);
+
+  // Create the system tray icon
+  let trayIcon = icon;
+  if (!is.dev) {
+    trayIcon = join(process.resourcesPath, 'icon.png');
+  }
+
+  try {
+    tray = new Tray(trayIcon);
+    tray.setToolTip('DeepSeek Developer Desktop');
+
+    tray.on('click', () => {
+      if (mainWindow) {
+        mainWindow.show();
+      }
+    });
+  } catch (error) {
+    console.error('tray fail:', error);
+  }
+
+  mainWindow.on('closed', () => {
+    clearInterval(intervalId);
+    intervalId = null;
+    // Clean tray icon
+    if (tray) {
+      tray.destroy()
+    }
+  });
+
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show()
+  })
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
+  // HMR for renderer base on electron-vite cli.
+  // Load the remote URL for development or the local html file for production.
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+  } else {
+    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  }
+}
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.whenReady().then(() => {
+  ipcMain.handle('reload', () => {
+    if (mainWindow) {
+      mainWindow.reload(); // reload
+    }
+  });
+
+  ipcMain.handle('exit', () => {
+    if (mainWindow) {
+      app.quit(); // quit
+    }
+  });
+
+  ipcMain.handle('close', () => {
+    if (mainWindow) {
+      mainWindow.hide() // hide window
+    }
+  });
+
+  ipcMain.handle('maximize', () => {
+    if (mainWindow) {
+      mainWindow.maximize(); // maximize
+    }
+  });
+
+  ipcMain.handle('restore', () => {
+    if (mainWindow) {
+      mainWindow.restore(); // maximize
+    }
+  });
+
+  ipcMain.handle('minimize', () => {
+    if (mainWindow) {
+      mainWindow.minimize(); // minimize
+    }
+  });
+
+  // Test creating docker container
+  ipcMain.handle('run-docker-test', () => {
+    const { spawn } = require('child_process');
+    const command = 'docker';
+    const args = [
+      'run',
+      '--runtime=nvidia',
+      '--gpus', 'all',
+      '--name', 'DeepSeek-Deployment-Webui',
+      '-v', `${process.env.USERPROFILE}/.cache/huggingface:/root/.cache/huggingface`,
+      '-v', 'deepseek-model-volume:/deepseek-ai',
+      '-p', '1229:8000',
+      '--ipc=host',
+      'vllm/vllm-openai:latest',
+      '--model', '/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B',
+      '--gpu_memory_utilization', '1.0',
+      '--max_model_len', '8192'
+    ];
+
+    const child = spawn(command, args);
+
+    child.stdout.on('data', (data) => {
+      mainWindow.webContents.send('docker-run-info', data.toString());
+    });
+
+    child.stderr.on('data', (data) => {
+      mainWindow.webContents.send('docker-run-info', data.toString());
+      if (data.toString().includes('Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)')) {
+        console.log('ok');
+      }
+    });
+
+    child.on('close', (code) => {
+      console.log(`exit code ${code}`);
+    });
+  });
+
+  ipcMain.handle('get-graphics-info', async () => {
+    const si = require('systeminformation');
+    try {
+      const graphics = await si.graphics();
+      console.log('Graphics Information:');
+      graphics.controllers.forEach((controller, index) => {
+        console.log(`Controller ${index + 1}:`);
+        console.log(`  Model: ${controller.model}`);
+        console.log(`  Vendor: ${controller.vendor}`);
+        console.log(`  VRAM: ${controller.vram} MB`);
+        console.log(`  Bus: ${controller.bus}`);
+        console.log('--------------------------');
+      });
+    } catch (error) {
+      console.error('Error fetching graphics information:', error);
+    }
+  })
+
+  // Set app user model id for windows
+  electronApp.setAppUserModelId('com.electron')
+
+  // Default open or close DevTools by F12 in development
+  // and ignore CommandOrControl + R in production.
+  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
+  app.on('browser-window-created', (_, window) => {
+    optimizer.watchWindowShortcuts(window)
+  })
+
+  createWindow()
+
+  app.on('activate', function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
