@@ -15,6 +15,8 @@ function createWindow(): void {
     frame: false,
     transparent: false,
     autoHideMenuBar: true,
+    minWidth: 500,
+    minHeight: 400,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -145,6 +147,10 @@ if (!gotTheLock) {
         mainWindow.minimize(); // minimize
       }
     });
+
+    ipcMain.handle('external-url', async (_event, url) => {
+      await shell.openExternal(url)
+    })
 
     // Test creating docker container
     ipcMain.handle('run-docker-test', () => {

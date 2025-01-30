@@ -11,13 +11,81 @@
     -webkit-app-region: drag;
 }
 
-.logo{
+.logo {
     position: absolute;
     left: -20.5rem;
     transform: scale(0.06);
 }
 
-.title{
+@media (min-width: 650px) {
+    .github,
+    .huggingface {
+        position: absolute;
+        right: 9rem;
+        border-radius: 4px;
+        border: none;
+        background-color: white;
+        width: 6.5rem;
+        height: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .huggingface {
+        right: 16.2rem;
+    }
+
+    .github svg,
+    .huggingface svg {
+        position: absolute;
+        left: -5.2rem;
+        height: 1.2rem;
+        fill: var(--theme-color)
+    }
+
+    .github span,
+    .huggingface span {
+        position: absolute;
+        left: 2rem;
+        color: var(--theme-color);
+        font-weight: bolder;
+    }
+}
+
+@media (max-width: 649px) {
+    .github,
+    .huggingface {
+        position: absolute;
+        right: 9rem;
+        border-radius: 4px;
+        border: none;
+        background-color: white;
+        width: 2.2rem;
+        height: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .huggingface {
+        right: 11.9rem;
+    }
+
+    .github svg,
+    .huggingface svg {
+        position: absolute;
+        height: 1.2rem;
+        fill: var(--theme-color)
+    }
+
+    .github span,
+    .huggingface span {
+        display: none;
+    }
+}
+
+.title {
     position: absolute;
     left: 0.5rem;
 }
