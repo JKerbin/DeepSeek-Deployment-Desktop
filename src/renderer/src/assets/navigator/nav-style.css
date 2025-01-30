@@ -17,7 +17,26 @@
     transform: scale(0.06);
 }
 
-@media (min-width: 650px) {
+.langSelector .dropdown-toggle {
+    background-color: transparent;
+    color: white;
+    font-weight: bolder;
+    border: none;
+    border-radius: 4px;
+    width: 3.5rem;
+    height: 2.2rem;
+}
+
+.langSelector .dropdown-toggle:hover {
+    background-color: var(--subtheme-color);
+}
+
+@media (min-width: 700px) {
+    .langSelector {
+        position: absolute;
+        right: 23.4rem;
+    }
+
     .github,
     .huggingface {
         position: absolute;
@@ -32,6 +51,11 @@
         justify-content: center;
     }
 
+    .github:hover,
+    .huggingface:hover {
+        background-color: #f0f0f0;
+    }
+
     .huggingface {
         right: 16.2rem;
     }
@@ -39,8 +63,9 @@
     .github svg,
     .huggingface svg {
         position: absolute;
-        left: -5.2rem;
+        left: 0.5rem;
         height: 1.2rem;
+        width: 1.2rem;
         fill: var(--theme-color)
     }
 
@@ -53,7 +78,12 @@
     }
 }
 
-@media (max-width: 649px) {
+@media (max-width: 699px) {
+    .langSelector {
+        position: absolute;
+        right: 14.8rem;
+    }
+
     .github,
     .huggingface {
         position: absolute;
@@ -68,6 +98,11 @@
         justify-content: center;
     }
 
+    .github:hover,
+    .huggingface:hover {
+        background-color: #f0f0f0;
+    }
+
     .huggingface {
         right: 11.9rem;
     }
@@ -76,6 +111,7 @@
     .huggingface svg {
         position: absolute;
         height: 1.2rem;
+        width: 1.2rem;
         fill: var(--theme-color)
     }
 

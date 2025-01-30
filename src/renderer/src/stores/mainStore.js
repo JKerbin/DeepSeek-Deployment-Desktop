@@ -1,21 +1,16 @@
 import { defineStore } from 'pinia';
 
 export const useMainStore = defineStore('main', {
-    state: () => ({
-        selectedFile: null, // file informaton
-        fileContent: null, // file content
-        terminalShow: false, // show terminal
-        projectsDirectoryPath: 'projects',
-    }),
+    state: () => {
+        const savedLanguage = localStorage.getItem('language'); // Get the language from local storage
+        return {
+            language: savedLanguage || 'en', // If there is no saved language, the default is English
+        };
+    },
     actions: {
-        setSelectedFile(fileInfo) {
-            this.selectedFile = fileInfo;
-        },
-        setFileContent(content) {
-            this.fileContent = content;
-        },
-        setTerminalShow(show) {
-            this.terminalShow = show;
+        setLanguage(lang) { // Set language
+            this.language = lang;
+            localStorage.setItem('language', lang); // Save the language to local storage
         }
     },
 });
