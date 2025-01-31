@@ -157,5 +157,5 @@ function repoUrl(url) {
 
 
 <style scoped>
-@import "../assets/navigator/nav-style.css";
+@import "../assets/navigator.css";
 </style>

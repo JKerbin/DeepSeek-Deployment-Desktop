@@ -53,7 +53,7 @@
 
     .github:hover,
     .huggingface:hover {
-        background-color: #f0f0f0;
+        background-color: var(--subdesk-color);
     }
 
     .huggingface {
@@ -100,7 +100,7 @@
 
     .github:hover,
     .huggingface:hover {
-        background-color: #f0f0f0;
+        background-color: var(--subdesk-color);
     }
 
     .huggingface {

@@ -1,0 +1,28 @@
+:root {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  --gradient-color: linear-gradient(to right, rgb(52, 80, 178), rgb(77, 107, 254), rgb(91, 150, 257));
+  --theme-color: rgb(77, 107, 254);
+  --subtheme-color: rgb(52, 80, 178);
+  --desk-color: rgb(255, 255, 255);
+  --subdesk-color: rgb(240, 240, 240);
+  --font-color: rgb(0, 0, 0);
+}
+
+.background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--desk-color);
+  z-index: -2;
+}
+
+.interface {
+  width: 100%;
+  height: calc(100% - 5.5rem);
+  position: absolute;
+  top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

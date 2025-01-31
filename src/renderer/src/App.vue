@@ -1,12 +1,20 @@
 <template>
-  <div>
-    <RouterView />
+  <div class="main-container">
+    <div class="background"></div>
+    <Nav />
+
+    <div class="interface">
+      <RouterView />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script setup>
 import { RouterView } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
+import Nav from './components/Nav.vue';
+import Footer from './components/Footer.vue';
 
 onMounted(() => {
   // Listens for docker info
@@ -22,8 +30,5 @@ onUnmounted(() => {
 </script>
 
 <style>
-:root {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-}
+@import "./assets/app.css";
 </style>

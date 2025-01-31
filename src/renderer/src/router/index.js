@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router"
-import Main from '../views/Main.vue'
+import InstanceManager from '../views/InstanceManager.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
-    { path: '/', component: Main }
+    { path: '/', component: InstanceManager }
   ]
 })
 
