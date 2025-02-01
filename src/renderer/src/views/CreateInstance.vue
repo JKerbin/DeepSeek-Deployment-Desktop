@@ -5,7 +5,7 @@
         <span v-if="steps === 3">{{ language === 'en' ? '3. Validate Model Files' : '3. 校验模型文件' }}</span>
         <span v-if="steps === 4">{{ language === 'en' ? '4. Configure Model' : '4. 配置模型' }}</span>
         <span v-if="steps === 5">{{ language === 'en' ? '5. Deploy Instance' : '5. 部署实例' }}</span>
-        <button v-if="steps!==5" class="next-step" @click="nextStep">
+        <button v-if="steps !== 5" class="next-step" @click="nextStep">
             <svg t="1738387586247" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="4348" width="200" height="200">
                 <path
@@ -92,112 +92,5 @@ const overlayWidth = computed(() => {
 </script>
 
 <style scoped>
-.text {
-    font-size: 1.8rem;
-    position: absolute;
-    top: 6%;
-    width: 90%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    color: var(--font-color);
-    /* background-color: aquamarine; */
-}
-
-.next-step {
-    position: relative;
-    margin-left: 1rem;
-    height: 2rem;
-    width: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid var(--theme-color);
-    background-color: white;
-    /* z-index: 1000; */
-}
-
-.next-step:hover {
-    background-color: var(--subdesk-color);
-}
-
-.next-step svg {
-    height: 1.2rem;
-    width: 1.2rem;
-    fill: var(--theme-color)
-}
-
-.cancel {
-    position: relative;
-    margin-left: 1rem;
-    height: 2rem;
-    width: 3rem;
-    display: flex;
-    align-items: end;
-    justify-content: center;
-    border: 0;
-    background-color: white;
-    /* z-index: 1000; */
-}
-
-.cancel span {
-    font-size: 1rem;
-    text-decoration: underline;
-    color: var(--theme-color);
-}
-
-.cancel:hover span {
-    color: var(--subtheme-color);
-}
-
-.hint {
-    position: absolute;
-    top: 14%;
-    width: 90%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    color: var(--font-color);
-
-    @media (max-height: 549px) {
-        display: none;
-    }
-}
-
-.instances {
-    position: absolute;
-    bottom: 0;
-    height: 75%;
-    width: 100%;
-    background-color: var(--subdesk-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.instances .list-bottom {
-    position: absolute;
-    bottom: 0;
-    height: 20%;
-    width: 100%;
-    background: linear-gradient(to bottom, transparent, var(--desk-color));
-}
-
-.progress-bar {
-    position: absolute;
-    top: 0;
-    height: 0.2rem;
-    width: 100%;
-    background: var(--subgradient-color);
-}
-
-.progress-bar .overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: var(--subdesk-color);
-    height: 0.2rem;
-    transition: width 0.5s;
-}
+@import "../assets/creator.css";
 </style>
