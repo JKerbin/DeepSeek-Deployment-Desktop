@@ -29,77 +29,10 @@ const store = useMainStore();
 const language = computed(() => store.language);
 
 const handleAddInstance = () => {
-    console.log('添加实例');
+    // store.setInstanceStatus(true)
 };
 </script>
 
 <style scoped>
-.text {
-    font-size: 1.8rem;
-    position: absolute;
-    top: 4%;
-    width: 90%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    color: var(--font-color);
-    /* background-color: aquamarine; */
-}
-
-.add-instance {
-    position: relative;
-    margin-left: 1rem;
-    height: 2rem;
-    width: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid var(--theme-color);
-    background-color: white;
-    z-index: 1000;
-}
-
-.add-instance:hover {
-    background-color: var(--subdesk-color);
-}
-
-.add-instance svg {
-    height: 1.2rem;
-    width: 1.2rem;
-    fill: var(--theme-color)
-}
-
-.hint {
-    position: absolute;
-    top: 11%;
-    width: 90%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    color: var(--font-color);
-
-    @media (max-height: 549px) {
-        display: none;
-    }
-}
-
-.instances-list {
-    position: absolute;
-    bottom: 0;
-    height: 80%;
-    width: 100%;
-    background-color: var(--subdesk-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.instances-list .list-bottom {
-    position: absolute;
-    bottom: 0;
-    height: 20%;
-    width: 100%;
-    background: linear-gradient(to bottom, transparent, var(--desk-color));
-}
+@import "../assets/manager.css";
 </style>

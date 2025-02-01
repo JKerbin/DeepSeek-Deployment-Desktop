@@ -7,6 +7,7 @@ export const useMainStore = defineStore('main', {
             language: savedLanguage || 'en', // If there is no saved language, the default is English
             graphicsInfoList: undefined, // The GPU information list
             cudaInfo: undefined, // The cuda info
+            instanceStatus: false, //Instance running status
         };
     },
     actions: {
@@ -19,6 +20,9 @@ export const useMainStore = defineStore('main', {
         },
         setCudaInfo(cudaInfo) {
             this.cudaInfo = cudaInfo;
+        },
+        setInstanceStatus(status) {
+            this.instanceStatus = status;
         }
     },
 });

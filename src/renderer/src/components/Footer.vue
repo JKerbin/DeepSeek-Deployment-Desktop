@@ -82,6 +82,22 @@
                 </li>
             </ul>
         </div>
+
+        <div class="instance-status info">
+            <svg v-if="instanceStatus" t="1738376720183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="1497" width="200" height="200">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#CCFF90" p-id="1498"
+                    data-spm-anchor-id="a313x.search_index.0.i3.27373a81e1NJBQ" class=""></path>
+                <path d="M512 512m-320 0a320 320 0 1 0 640 0 320 320 0 1 0-640 0Z" fill="#4CAF50" p-id="1499"
+                    data-spm-anchor-id="a313x.search_index.0.i0.27373a81e1NJBQ" class="selected"></path>
+            </svg>
+            <svg v-else t="1738376663947" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="6498" width="200" height="200">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#db6050" p-id="6499"></path>
+                <path d="M512 512m-320 0a320 320 0 1 0 640 0 320 320 0 1 0-640 0Z" fill="#d81e06" p-id="6500"></path>
+            </svg>
+            <span>{{ instanceStatus ? "Active" : "Idle" }}</span>
+        </div>
     </footer>
 </template>
 
@@ -90,6 +106,7 @@ import { onMounted, ref, computed } from 'vue';
 import { useMainStore } from '../stores/mainStore';
 const store = useMainStore();
 const language = computed(() => store.language);
+const instanceStatus = computed(() => store.instanceStatus);
 
 const graphicsInfo = ref(undefined);
 const cudaInfo = ref(undefined);
@@ -106,55 +123,5 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.footer {
-    position: fixed;
-    bottom: 0;
-    height: 1.5rem;
-    width: 100vw;
-    background-color: var(--subdesk-color);
-    display: flex;
-    align-items: center;
-}
-
-.info {
-    height: 1.5rem;
-    width: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    border-right: 1px solid var(--desk-color);
-}
-
-.info:hover {
-    background-color: var(--desk-color);
-    border: none;
-}
-
-.info span {
-    font-size: 0.7rem;
-    position: absolute;
-    text-align: center;
-    width: 2.5rem;
-    right: 0.5rem;
-    color: var(--font-color);
-}
-
-.info svg {
-    height: 1rem;
-    width: 1rem;
-    position: absolute;
-    left: 0.7rem;
-}
-
-.info-item:hover {
-    background-color: transparent;
-}
-
-.info-item:active {
-    background-color: transparent;
-    color: black;
-}
+@import "../assets/footer.css";
 </style>
