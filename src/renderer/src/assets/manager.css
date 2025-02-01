@@ -48,7 +48,7 @@
     }
 }
 
-.instances-list {
+.instances {
     position: absolute;
     bottom: 0;
     height: 80%;
@@ -56,10 +56,10 @@
     background-color: var(--subdesk-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 }
 
-.instances-list .list-bottom {
+.instances .list-bottom {
     position: absolute;
     bottom: 0;
     height: 20%;

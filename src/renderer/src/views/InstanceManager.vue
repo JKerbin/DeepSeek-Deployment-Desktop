@@ -16,20 +16,22 @@
             instance.' : '已经部署的实例列表，点击加号部署新的实例。' }}
         </span>
     </div>
-    <div class="instances-list">
+    <div class="instances">
         <div class="list-bottom"></div>
-        <div class="test"></div>
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { useMainStore } from '../stores/mainStore';
+import { useRouter } from 'vue-router';
+
 const store = useMainStore();
 const language = computed(() => store.language);
+const router = useRouter();
 
 const handleAddInstance = () => {
-    // store.setInstanceStatus(true)
+    router.replace('/create');
 };
 </script>
 
