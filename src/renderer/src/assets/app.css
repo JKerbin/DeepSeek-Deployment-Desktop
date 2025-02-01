@@ -2,6 +2,7 @@
   font-family: Arial, sans-serif;
   font-size: 16px;
   --gradient-color: linear-gradient(to right, rgb(52, 80, 178), rgb(77, 107, 254), rgb(91, 150, 257));
+  --subgradient-color: linear-gradient(to right, rgb(255, 126, 227), rgb(77, 107, 254), rgb(109, 255, 214));
   --theme-color: rgb(77, 107, 254);
   --subtheme-color: rgb(52, 80, 178);
   --desk-color: rgb(255, 255, 255);
