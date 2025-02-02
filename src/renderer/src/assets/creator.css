@@ -1,7 +1,15 @@
-.text {
-    font-size: 1.8rem;
+.info {
+    height: 25%;
+    width: 90%;
     position: absolute;
-    top: 6%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-info {
+    font-size: 1.5rem;
     width: 90%;
     height: 2rem;
     display: flex;
@@ -41,9 +49,10 @@
     width: 3rem;
     display: flex;
     align-items: end;
-    justify-content: center;
+    justify-content: flex-start;
     border: 0;
-    background-color: white;
+    padding: 0;
+    background-color: var(--desk-color);
     /* z-index: 1000; */
 }
 
@@ -58,13 +67,12 @@
 }
 
 .hint {
-    position: absolute;
-    top: 14%;
     width: 90%;
     height: 2rem;
     display: flex;
     align-items: center;
     color: var(--font-color);
+    font-size: 0.8rem;
 
     @media (max-height: 549px) {
         display: none;
