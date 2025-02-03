@@ -93,7 +93,7 @@
             </svg>
             <svg v-else t="1738376663947" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="6498" width="200" height="200">
-                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#db6050" p-id="6499"></path>
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#ffcccc" p-id="6499"></path>
                 <path d="M512 512m-320 0a320 320 0 1 0 640 0 320 320 0 1 0-640 0Z" fill="#d81e06" p-id="6500"></path>
             </svg>
             <span>{{ instanceStatus ? "Active" : "Idle" }}</span>

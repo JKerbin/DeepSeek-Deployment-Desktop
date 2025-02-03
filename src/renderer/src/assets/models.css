@@ -1,0 +1,62 @@
+.overflow-auto {
+    position: absolute;
+    top: 10%;
+    width: 75%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overflow-auto .item {
+    min-height: 4rem;
+    max-height: 4rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--desk-color);
+}
+
+.overflow-auto .item:hover {
+    background-color: var(--select-color);
+}
+
+.overflow-auto .available {
+    background-color: var(--select-color);
+}
+
+.overflow-auto .item .model {
+    position: absolute;
+    left: 0;
+}
+
+.overflow-auto .item .model span {
+    padding: 1rem;
+}
+
+.overflow-auto .item .status {
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--theme-color);
+}
+
+.overflow-auto .item .status .indicator {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 0.7rem;
+    width: 0.7rem;
+    display: flex;
+}
+
+.overflow-auto .item .status .indicator svg {
+    height: 0.7rem;
+    width: 0.7rem;
+}
+
+.selected {
+    background-color: var(--select-color);
+}

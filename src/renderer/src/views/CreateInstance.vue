@@ -47,7 +47,7 @@
         <div class="progress-bar">
             <div class="overlay" :style="{ width: overlayWidth }"></div>
         </div>
-        <Models v-if="steps === 1" />
+        <Models v-if="steps === 1" @model-chosen="chosenModel = $event" />
         <div class="list-bottom"></div>
     </div>
 </template>
@@ -63,6 +63,7 @@ const store = useMainStore();
 const language = computed(() => store.language);
 
 const steps = ref(0);
+const chosenModel = ref(undefined);
 
 setTimeout(() => {
     steps.value += 1;

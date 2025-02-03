@@ -29,7 +29,6 @@
     border-radius: 50%;
     border: 2px solid var(--theme-color);
     background-color: white;
-    /* z-index: 1000; */
 }
 
 .next-step:hover {
@@ -53,7 +52,6 @@
     border: 0;
     padding: 0;
     background-color: var(--desk-color);
-    /* z-index: 1000; */
 }
 
 .cancel span {

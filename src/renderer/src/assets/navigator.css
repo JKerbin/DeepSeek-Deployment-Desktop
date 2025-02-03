@@ -124,6 +124,7 @@
 .title {
     position: absolute;
     left: 0.5rem;
+    height: 4rem;
 }
 
 button {

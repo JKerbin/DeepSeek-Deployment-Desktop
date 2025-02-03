@@ -29,7 +29,6 @@
     border-radius: 50%;
     border: 2px solid var(--theme-color);
     background-color: white;
-    z-index: 1000;
 }
 
 .add-instance:hover {

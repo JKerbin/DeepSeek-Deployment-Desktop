@@ -114,27 +114,27 @@ onUnmounted(() => {
     electron.ipcRenderer.removeAllListeners('maximized')
 })
 
-function setLanguage(lang) {
+const setLanguage = (lang) => {
     store.setLanguage(lang)
 }
 
-function close() {
+const close = () => {
     electron.ipcRenderer.invoke('close');
 }
 
-function maximize() {
+const maximize = () => {
     electron.ipcRenderer.invoke('maximize')
 }
 
-function restore() {
+const restore = () => {
     electron.ipcRenderer.invoke('restore')
 }
 
-function minimize() {
+const minimize = () => {
     electron.ipcRenderer.invoke('minimize')
 }
 
-function repoUrl(url) {
+const repoUrl = (url) => {
     electron.ipcRenderer.invoke('external-url', url)
 }
 </script>
