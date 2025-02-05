@@ -119,6 +119,7 @@ onMounted(async () => {
     dockerInfo.value = await electron.ipcRenderer.invoke('get-docker-info');
     store.setGraphicsInfo(graphicsInfo.value);
     store.setCudaInfo(cudaInfo.value);
+    store.setDockerInfo(dockerInfo.value);
 });
 </script>
 

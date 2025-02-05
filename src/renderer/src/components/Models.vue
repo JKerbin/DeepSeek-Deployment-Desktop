@@ -52,5 +52,5 @@ const chooseModel = (index) => {
 </script>
 
 <style scoped>
-@import '../assets/models.css'
+@import '../assets/models.css';
 </style>

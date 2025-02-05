@@ -1,0 +1,51 @@
+.item {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 4rem;
+    border-bottom: 1.5px solid var(--desk-color);
+}
+
+
+.item .title {
+    position: absolute;
+    width: 50%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    left: 0;
+    border-right: 1.5px solid var(--desk-color);
+}
+
+.item .status {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 3rem;
+    display: flex;
+    justify-content: start;
+    padding: 1rem;
+    align-items: center;
+}
+
+.item .status span {
+    position: relative;
+}
+
+.item .status .indicator {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 0.7rem;
+    width: 0.7rem;
+    display: flex;
+    position: relative;
+    right: 0;
+}
+
+.item .status .indicator svg {
+    height: 0.7rem;
+    width: 0.7rem;
+}

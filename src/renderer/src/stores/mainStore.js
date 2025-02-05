@@ -7,6 +7,7 @@ export const useMainStore = defineStore('main', {
             language: savedLanguage || 'en', // If there is no saved language, the default is English
             graphicsInfoList: undefined, // The GPU information list
             cudaInfo: undefined, // The cuda info
+            dockerInfo: undefined,
             instanceStatus: false, //Instance running status
         };
     },
@@ -20,6 +21,9 @@ export const useMainStore = defineStore('main', {
         },
         setCudaInfo(cudaInfo) {
             this.cudaInfo = cudaInfo;
+        },
+        setDockerInfo(dockerInfo) {
+            this.dockerInfo = dockerInfo;
         },
         setInstanceStatus(status) {
             this.instanceStatus = status;
