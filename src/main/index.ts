@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import { validateModel, downloadFile } from './validator'
+import { validateModel, downloadFile, cancelDownload } from './validator'
 import { getCudaInfo, getDockerInfo, getGraphicsInfo } from './environment'
 import icon from '../../resources/icon.png?asset'
 
@@ -211,6 +211,10 @@ if (!gotTheLock) {
 
     ipcMain.on('download-file', (_event, { dir, name, url }) => {
       downloadFile(dir, name, url, mainWindow);
+    });
+
+    ipcMain.on('cancel-download', (_event, { dir, name }) => {
+      cancelDownload(dir, name);
     });
 
     // Set app user model id for windows

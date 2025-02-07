@@ -139,11 +139,19 @@ watch(filesR, () => {
     }
 }, { deep: true });
 
-//Listener remove
+//Listener remove and cancel downloads
 onUnmounted(() => {
     electron.ipcRenderer.removeListener('download-progress', onDownloadProgress);
     electron.ipcRenderer.removeListener('download-complete', onDownloadComplete);
     electron.ipcRenderer.removeListener('download-fail', onDownloadFail);
+
+    const incompleteFiles = filesR.value.filter(file => file.status !== 'completed');
+    incompleteFiles.forEach(file => {
+        electron.ipcRenderer.send('cancel-download', {
+            dir: filesDir.value,
+            name: file.name
+        });
+    });
 });
 </script>
 
