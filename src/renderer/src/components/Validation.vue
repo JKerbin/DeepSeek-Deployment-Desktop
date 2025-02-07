@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { useMainStore } from '../stores/mainStore';
 
 const props = defineProps({
@@ -103,131 +103,50 @@ validatingRes.then(result => {
     filesR.value.forEach(file => file.status = 'failed')
 });
 
-// Listen for download progress events
-electron.ipcRenderer.on('download-progress', (_, { name, progress }) => {
+const onDownloadProgress = (_, { name, progress }) => {
     const file = filesR.value.find(f => f.name === name);
     if (file) {
         file.progress = progress.toFixed(0)
     }
-});
+};
 
-// Listen for download completion events
-electron.ipcRenderer.on('download-complete', (_, { name }) => {
+const onDownloadComplete = (_, { name }) => {
     const file = filesR.value.find(f => f.name === name);
     if (file) {
         file.status = 'completed';
     }
-});
+};
 
-// Listen for download failure events
-electron.ipcRenderer.on('download-fail', (_, { name }) => {
+const onDownloadFail = (_, { name }) => {
     const file = filesR.value.find(f => f.name === name);
     if (file) {
         file.status = 'failed';
     }
-});
+};
+
+// Listen for download progress events
+electron.ipcRenderer.on('download-progress', onDownloadProgress);
+
+// Listen for download completion events
+electron.ipcRenderer.on('download-complete', onDownloadComplete);
+
+// Listen for download failure events
+electron.ipcRenderer.on('download-fail', onDownloadFail);
 
 watch(filesR, () => {
     if (filesR.value.every(f => f.status === 'completed')) {
         emit('files-validated');
     }
 }, { deep: true });
+
+//Listener remove
+onUnmounted(() => {
+    electron.ipcRenderer.removeListener('download-progress', onDownloadProgress);
+    electron.ipcRenderer.removeListener('download-complete', onDownloadComplete);
+    electron.ipcRenderer.removeListener('download-fail', onDownloadFail);
+});
 </script>
 
 <style scoped>
-.overflow-auto {
-    position: absolute;
-    top: 10%;
-    width: 75%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-}
-
-.header {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 4rem;
-    border-bottom: 1.5px solid var(--desk-color);
-}
-
-.header .items {
-    position: absolute;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    left: 0;
-    border-right: 1.5px solid var(--desk-color);
-}
-
-.header .status {
-    position: absolute;
-    right: 0;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: start;
-    padding: 1rem;
-    align-items: center;
-}
-
-.item {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 4rem;
-    border-bottom: 1.5px solid var(--desk-color);
-}
-
-
-.item .file-name {
-    position: absolute;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    left: 0;
-    border-right: 1.5px solid var(--desk-color);
-}
-
-.item .status {
-    position: absolute;
-    right: 0;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: start;
-    padding: 1rem;
-    align-items: center;
-}
-
-.item .status span {
-    position: relative;
-    margin-left: 0.2rem;
-}
-
-.item .status .indicator {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    height: 1rem;
-    width: 1rem;
-    display: flex;
-    position: relative;
-    right: 0;
-}
-
-.item .status .indicator svg {
-    height: 1rem;
-    width: 1rem;
-}
+@import '../assets/validation.css';
 </style>
