@@ -94,7 +94,6 @@ validatingRes.then(result => {
     // Send download requests one by one
     filesToDownload.forEach(file => {
         electron.ipcRenderer.send('download-file', {
-            dir: filesDir.value,
             name: file.name,
             url: file.url
         });
@@ -147,10 +146,7 @@ onUnmounted(() => {
 
     const incompleteFiles = filesR.value.filter(file => file.status !== 'completed');
     incompleteFiles.forEach(file => {
-        electron.ipcRenderer.send('cancel-download', {
-            dir: filesDir.value,
-            name: file.name
-        });
+        electron.ipcRenderer.send('cancel-download');
     });
 });
 </script>

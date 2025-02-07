@@ -8,9 +8,12 @@ const activeRequests = new Map<string, ClientRequest>();
 // Store all file streams
 const activeFileStreams = new Map<string, fs.WriteStream>();
 
+let modelDir = '';
+
 export const validateModel = (dir: string, files: string[]) => {
     let filesStatus: string[] = [];
-    const filesPath = join('./models', dir);
+    modelDir = dir
+    const filesPath = join('./models', modelDir);
     if (!fs.existsSync(filesPath)) {
         try {
             fs.mkdirSync(filesPath, { recursive: true });
@@ -32,8 +35,8 @@ export const validateModel = (dir: string, files: string[]) => {
     return filesStatus;
 }
 
-export const downloadFile = (dir: string, name: string, url: string, windowInstance: any) => {
-    const downloadPath = join('./models', dir, name);
+export const downloadFile = (name: string, url: string, windowInstance: any) => {
+    const downloadPath = join('./models', modelDir, name);
     const fileStream = fs.createWriteStream(downloadPath);
     activeFileStreams.set(name, fileStream);
 
@@ -101,21 +104,25 @@ const handleDownloadFailure = (name: string, downloadPath: string, windowInstanc
     windowInstance.webContents.send('download-fail', { name });
 }
 
-// Undownload and delete the file function
-export const cancelDownload = (dir: string, name: string) => {
-    const request = activeRequests.get(name);
-    if (request) {
+// 取消下载并删除文件的函数
+export const cancelDownload = () => {
+    // 取消所有文件的下载
+    activeRequests.forEach((request, fileName) => {
         request.destroy();
-        activeRequests.delete(name);
-    }
-    const fileStream = activeFileStreams.get(name);
-    if (fileStream) {
-        fileStream.end(); // End write
-        fileStream.destroy(); // Destroy file stream
-        activeFileStreams.delete(name);
-    }
-    const downloadPath = join('./models', dir, name);
-    if (fs.existsSync(downloadPath)) {
-        fs.unlinkSync(downloadPath);
-    }
+        activeRequests.delete(fileName);
+    });
+    activeFileStreams.forEach((fileStream, fileName) => {
+        fileStream.end();
+        fileStream.destroy();
+        activeFileStreams.delete(fileName);
+        const downloadPath = join('./models', modelDir, fileName);
+        if (fs.existsSync(downloadPath)) {
+            try {
+                fs.unlinkSync(downloadPath);
+                console.log(`File ${downloadPath} deleted successfully.`);
+            } catch (error) {
+                console.error(`Failed to delete file ${downloadPath}:`, error);
+            }
+        }
+    });
 }

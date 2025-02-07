@@ -209,12 +209,12 @@ if (!gotTheLock) {
       return result;
     });
 
-    ipcMain.on('download-file', (_event, { dir, name, url }) => {
-      downloadFile(dir, name, url, mainWindow);
+    ipcMain.on('download-file', (_event, { name, url }) => {
+      downloadFile(name, url, mainWindow);
     });
 
-    ipcMain.on('cancel-download', (_event, { dir, name }) => {
-      cancelDownload(dir, name);
+    ipcMain.on('cancel-download', () => {
+      cancelDownload();
     });
 
     // Set app user model id for windows
@@ -235,6 +235,11 @@ if (!gotTheLock) {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
   })
+
+  // 监听 will-quit 事件，在程序退出时取消所有未完成的下载
+  app.on('will-quit', (_event) => {
+    cancelDownload();
+  });
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
