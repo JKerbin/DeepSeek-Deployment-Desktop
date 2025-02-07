@@ -72,7 +72,11 @@ export const downloadFile = (name: string, url: string, windowInstance: any) => 
                 fileStream.close();
                 activeFileStreams.delete(name);
                 activeRequests.delete(name);
-                windowInstance.webContents.send('download-complete', { name });
+                try {
+                    windowInstance.webContents.send('download-complete', { name });
+                } catch {
+                    console.log('Please do not delete this try-catch lol');
+                }
             });
         }).on('error', (_error) => {
             handleDownloadFailure(name, downloadPath, windowInstance);
