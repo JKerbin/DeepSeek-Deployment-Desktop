@@ -129,7 +129,7 @@ if (!gotTheLock) {
     ipcMain.handle('close', () => {
       if (mainWindow) {
         mainWindow.hide() // hide window
-        new Notification({ title: 'hint', body: 'Developer is still running in the background' }).show(); // Create notification
+        new Notification({ title: 'DeepSeek Developer Desktop', body: 'Keep running in the background' }).show(); // Create notification
       }
     });
 
