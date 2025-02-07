@@ -30,8 +30,9 @@
                             fill="#EA3C3C" p-id="8050"></path>
                     </svg>
                 </div>
-                <span>{{ language === 'en' ? file.status : (file.status === 'completed' ? '完成' : (file.status ===
-                    'downloading' ? '下载中' : '失败')) }}</span>
+                <span>{{ language === 'en' ? (file.status === 'failed' ? 'Check the network or run as an administrator'
+                    : file.status) : (file.status === 'completed' ? '完成' : (file.status === 'downloading' ? '下载中' :
+                        '检查网络或以管理员身份运行')) }}</span>
                 <span v-if="file.status === 'downloading'">{{ file.progress }}%</span>
             </div>
         </div>
