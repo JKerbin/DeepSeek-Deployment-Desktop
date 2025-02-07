@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu, Notification } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { validateModel, downloadFile } from './validator'
@@ -129,6 +129,7 @@ if (!gotTheLock) {
     ipcMain.handle('close', () => {
       if (mainWindow) {
         mainWindow.hide() // hide window
+        new Notification({ title: 'hint', body: 'Developer is still running in the background' }).show(); // Create notification
       }
     });
 
