@@ -49,7 +49,7 @@
         </div>
         <Models v-if="steps === 1" @model-chosen="chosenModel = $event" />
         <Environment v-if="steps === 2" :model="chosenModel" @envs-ok=envsOK />
-        <Validation v-if="steps === 3" :model="chosenModel" />
+        <Validation v-if="steps === 3" :model="chosenModel" @files-validated=filesValidated />
         <div class="list-bottom"></div>
     </div>
 </template>
@@ -69,6 +69,7 @@ const language = computed(() => store.language);
 const steps = ref(0);
 const chosenModel = ref(undefined);
 const environmentCheck = ref(false);
+const filesValidation = ref(false);
 
 setTimeout(() => {
     steps.value += 1;
@@ -84,6 +85,8 @@ const showNextStep = computed(() => {
             return chosenModel.value !== undefined;
         case 2:
             return environmentCheck.value === true;
+        case 3:
+            return filesValidation.value === true;
         default:
             return steps.value < 5;
     }
@@ -95,6 +98,10 @@ const cancel = () => {
 
 const envsOK = () => {
     environmentCheck.value = true;
+}
+
+const filesValidated = () => {
+    filesValidation.value = true;
 }
 
 const overlayWidth = computed(() => {
