@@ -113,16 +113,10 @@ export const cancelDownload = () => {
     });
     activeFileStreams.forEach((fileStream, fileName) => {
         fileStream.end();
-        fileStream.destroy();
         activeFileStreams.delete(fileName);
         const downloadPath = join('./models', modelDir, fileName);
         if (fs.existsSync(downloadPath)) {
-            try {
-                fs.unlinkSync(downloadPath);
-                console.log(`File ${downloadPath} deleted successfully.`);
-            } catch (error) {
-                console.error(`Failed to delete file ${downloadPath}:`, error);
-            }
+            fs.unlinkSync(downloadPath);
         }
     });
 }
