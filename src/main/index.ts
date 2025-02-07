@@ -129,7 +129,11 @@ if (!gotTheLock) {
     ipcMain.handle('close', () => {
       if (mainWindow) {
         mainWindow.hide() // hide window
-        new Notification({ title: 'DeepSeek Developer Desktop', body: 'Keep running in the background' }).show(); // Create notification
+        new Notification({
+          title: 'DeepSeek Developer Desktop',
+          body: 'Keep running in the background',
+          icon: icon
+        }).show();
       }
     });
 
@@ -218,7 +222,7 @@ if (!gotTheLock) {
     });
 
     // Set app user model id for windows
-    electronApp.setAppUserModelId('com.electron')
+    electronApp.setAppUserModelId('DS developer')
 
     // Default open or close DevTools by F12 in development
     // and ignore CommandOrControl + R in production.
