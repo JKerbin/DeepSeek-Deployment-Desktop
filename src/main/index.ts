@@ -236,7 +236,7 @@ if (!gotTheLock) {
     })
   })
 
-  // 监听 will-quit 事件，在程序退出时取消所有未完成的下载
+  // Cancel all outstanding downloads when the program exits
   app.on('will-quit', (_event) => {
     cancelDownload();
   });

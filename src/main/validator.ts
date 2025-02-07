@@ -108,9 +108,9 @@ const handleDownloadFailure = (name: string, downloadPath: string, windowInstanc
     windowInstance.webContents.send('download-fail', { name });
 }
 
-// 取消下载并删除文件的函数
+// Undownload and delete the file function
 export const cancelDownload = () => {
-    // 取消所有文件的下载
+    // Cancel the download of all files
     activeRequests.forEach((request, fileName) => {
         request.destroy();
         activeRequests.delete(fileName);
