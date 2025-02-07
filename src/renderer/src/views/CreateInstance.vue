@@ -6,7 +6,7 @@
             <span v-if="steps === 3">{{ language === 'en' ? '3. Validate Model Files' : '3. 校验模型文件' }}</span>
             <span v-if="steps === 4">{{ language === 'en' ? '4. Configure Model' : '4. 配置模型' }}</span>
             <span v-if="steps === 5">{{ language === 'en' ? '5. Deploy Instance' : '5. 部署实例' }}</span>
-            <button v-if=" showNextStep" class="next-step" @click="nextStep">
+            <button v-if="showNextStep" class="next-step" @click="nextStep">
                 <svg t="1738387586247" class="icon" viewBox="0 0 1024 1024" version="1.1"
                     xmlns="http://www.w3.org/2000/svg" p-id="4348" width="200" height="200">
                     <path
@@ -49,6 +49,7 @@
         </div>
         <Models v-if="steps === 1" @model-chosen="chosenModel = $event" />
         <Environment v-if="steps === 2" :model="chosenModel" @envs-ok=envsOK />
+        <Validation v-if="steps === 3" :model="chosenModel" />
         <div class="list-bottom"></div>
     </div>
 </template>
@@ -59,6 +60,7 @@ import { useMainStore } from '../stores/mainStore';
 import { useRouter } from 'vue-router';
 import Models from '../components/Models.vue';
 import Environment from '../components/Environment.vue';
+import Validation from '../components/Validation.vue';
 
 const router = useRouter();
 const store = useMainStore();
@@ -76,7 +78,7 @@ const nextStep = () => {
     steps.value += 1;
 };
 
-const  showNextStep = computed(() => {
+const showNextStep = computed(() => {
     switch (steps.value) {
         case 1:
             return chosenModel.value !== undefined;

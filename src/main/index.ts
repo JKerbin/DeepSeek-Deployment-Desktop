@@ -1,6 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { validateModel } from './validator'
 import icon from '../../resources/icon.png?asset'
 
 let mainWindow;
@@ -236,6 +237,11 @@ if (!gotTheLock) {
         });
       });
     })
+
+    ipcMain.handle('validate-model', async (_event, { dir, files }) => {
+      const result = await validateModel(dir, files);
+      return result;
+    });
 
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron')
