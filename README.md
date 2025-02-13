@@ -11,6 +11,8 @@
 
 <div style="border: 2px solid #743ee4;border-radius:15px; padding: 10px;display:flex;justify-content:center;background-color:#f5edfe;color:#743ee4">The project is still under development, so stay tuned</div>
 
+<img width="2048" alt="poster" src="https://github.com/user-attachments/assets/cb1bfcdd-4c3a-4330-aead-8c9af2dd8c5d" />
+
 ## Features
 - 💡 Provide a drop-down list to select the model
 - 💻 Automatic detection of environment dependencies
