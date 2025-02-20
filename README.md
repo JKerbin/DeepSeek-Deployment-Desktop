@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/github/package-json/dependency-version/alex8088/electron-vite-boilerplate/dev/typescript" alt="typescript-version" />
 </p>
 
-<div style="border: 2px solid #743ee4;border-radius:15px; padding: 10px;display:flex;justify-content:center;background-color:#f5edfe;color:#743ee4">The project is still under development, so stay tuned</div>
+> The project is still under development, so stay tuned
 
 <img width="2048" alt="poster" src="https://github.com/user-attachments/assets/cb1bfcdd-4c3a-4330-aead-8c9af2dd8c5d" />
 
